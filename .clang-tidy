@@ -1,0 +1,9 @@
+# Включение и выключение диагностических проверок
+Checks: >
+  -*,
+  bugprone-*,
+  cppcoreguidelines-*,
+  performance-*,
+  readability-*,
+  -readability-braces-around-statements
+

@@ -67,3 +67,26 @@ vcpkg_installed/
 # test output & cache
 Testing/
 .cache/
+
+
+# ==========================================
+# CMake Build Artifacts & Directories
+# ==========================================
+# Ignore the common build directories
+[Bb]uild/
+build-*/
+out/
+bin/
+
+# Ignore specific CMake generated files if you run CMake in the root
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+CMakeWin32/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps/
