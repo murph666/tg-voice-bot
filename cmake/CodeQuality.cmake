@@ -1,7 +1,10 @@
   find_program(CLANG_FORMAT_EXE NAMES clang-format)
   find_program(CLANG_TIDY_EXE NAMES clang-tidy)
 
-  file(GLOB_RECURSE ALL_SOURCE_FILES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/*.cpp ${CMAKE_SOURCE_DIR}/src/*.hpp)
+  file(GLOB_RECURSE ALL_SOURCE_FILES CONFIGURE_DEPENDS ${CMAKE_SOURCE_DIR}/src/utils/*.cpp
+          ${CMAKE_SOURCE_DIR}/src/utils/*.h
+          ${CMAKE_SOURCE_DIR}/src/*.cpp
+          ${CMAKE_SOURCE_DIR}/src/*.h)
 
   if(CLANG_FORMAT_EXE)
       add_custom_target(format

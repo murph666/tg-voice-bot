@@ -17,6 +17,7 @@ add_executable(TGVoiceBot)
 set_target_properties(TGVoiceBot PROPERTIES CXX_SCAN_FOR_MODULES OFF) #без этого падает lint
 
 target_sources(TGVoiceBot PRIVATE
-                src/main.cpp)
-
+        src/main.cpp
+        src/utils/Config.cpp)
+target_precompile_headers(TGVoiceBot PRIVATE src/pch.h)
 target_link_libraries(TGVoiceBot PRIVATE TgBot::TgBot spdlog::spdlog)
