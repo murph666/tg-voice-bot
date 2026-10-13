@@ -1,6 +1,7 @@
 add_executable(SmokeTest
         test.cpp
         ../src/utils/Config.cpp
+        ../src/utils/dbSqlite.cpp
 )
 
 target_include_directories(SmokeTest PRIVATE
@@ -15,6 +16,7 @@ target_link_libraries(SmokeTest PRIVATE
         GTest::gtest
         GTest::gtest_main
         spdlog::spdlog
+        SQLite::SQLite3
 )
 
 # Вариант 1: Один тест (текущий)

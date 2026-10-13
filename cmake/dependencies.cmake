@@ -15,7 +15,9 @@ CPMAddPackage(
         NAME curl
         GIT_TAG curl-8_21_0
         GITHUB_REPOSITORY "curl/curl"
-        OPTIONS "CURL_USE_LIBPSL OFF"
+        OPTIONS "CURL_USE_LIBPSL OFF" "BUILD_CURL_EXE OFF" "BUILD_TESTING OFF"
+        "BUILD_EXAMPLES OFF" "BUILD_LIBCURL_DOCS OFF" "BUILD_MISC_DOCS OFF"
+        "ENABLE_CURL_MANUAL OFF"
 )
 
 CPMAddPackage(
@@ -23,7 +25,20 @@ CPMAddPackage(
         GIT_TAG v1.18.0
         GITHUB_REPOSITORY "google/googletest"
 )
-
+CPMAddPackage(
+        NAME sqlite3
+        URL https://www.sqlite.org/2026/sqlite-amalgamation-3530400.zip
+        URL_HASH SHA3_256=628a44cfe82c66aed1ccbbe85a562d2e33ebe64b3288981ed76285612227934e
+        DOWNLOAD_ONLY YES
+)
+if(sqlite3_ADDED)
+    find_package(Threads REQUIRED)
+    add_library(sqlite3 STATIC ${sqlite3_SOURCE_DIR}/sqlite3.c)
+    target_link_libraries(sqlite3 PRIVATE Threads::Threads ${CMAKE_DL_LIBS})
+    target_include_directories(sqlite3 PUBLIC ${sqlite3_SOURCE_DIR})
+    set_target_properties(sqlite3 PROPERTIES POSITION_INDEPENDENT_CODE ON)
+    add_library(SQLite::SQLite3 ALIAS sqlite3)
+endif()
 
 CPMAddPackage(
         NAME nlohmann_json
@@ -44,3 +59,18 @@ CPMAddPackage(
         GITHUB_REPOSITORY "gabime/spdlog"
         OPTIONS "SPDLOG_FMT_EXTERNAL OFF"
 )
+
+
+function(print_all_targets dir)
+    get_property(targets DIRECTORY "${dir}" PROPERTY BUILDSYSTEM_TARGETS)
+    foreach(t IN LISTS targets)
+        get_target_property(type ${t} TYPE)
+        message(STATUS "${t}  [${type}]")
+    endforeach()
+    get_property(subdirs DIRECTORY "${dir}" PROPERTY SUBDIRECTORIES)
+    foreach(s IN LISTS subdirs)
+        print_all_targets("${s}")
+    endforeach()
+endfunction()
+
+#print_all_targets(${CMAKE_SOURCE_DIR})

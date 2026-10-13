@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.31)
 
-project(TGVoiceBot VERSION 0.1 LANGUAGES CXX)
+project(TGVoiceBot VERSION 0.1 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -18,6 +18,7 @@ set_target_properties(TGVoiceBot PROPERTIES CXX_SCAN_FOR_MODULES OFF) #без э
 
 target_sources(TGVoiceBot PRIVATE
         src/main.cpp
-        src/utils/Config.cpp)
+        src/utils/Config.cpp
+        src/utils/dbSqlite.cpp)
 target_precompile_headers(TGVoiceBot PRIVATE src/pch.h)
-target_link_libraries(TGVoiceBot PRIVATE TgBot::TgBot spdlog::spdlog)
+target_link_libraries(TGVoiceBot PRIVATE TgBot::TgBot spdlog::spdlog SQLite::SQLite3)
